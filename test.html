@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <title>Formularz</title>
+</head>
+<body>
+  <h2>Prosty formularz</h2>
+  <form id="quizForm">
+    <label>Pytanie 1: <input type="text" id="q1" required></label><br>
+    <label>Pytanie 2: <input type="text" id="q2" required></label><br>
+    <label>Pytanie 3: <input type="text" id="q3" required></label><br>
+    <button type="submit">Wyślij</button>
+  </form>
+
+  <script>
+  const form = document.getElementById("quizForm");
+  form.addEventListener("submit", e => {
+    e.preventDefault();
+    fetch("https://script.google.com/macros/s/AKfycbzHFa-IARctMhqcsF_nuwsu3JydyuFddgGxnHVF48srf85s7ZiRxfUKbZRl-ixCLFcwBg/exec", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        q1: document.getElementById("q1").value,
+        q2: document.getElementById("q2").value,
+        q3: document.getElementById("q3").value
+      })
+    }).then(() => {
+      alert("Odpowiedzi wysłane!");
+      form.reset();
+    }).catch(err => alert("Błąd: " + err));
+  });
+  </script>
+</body>
+</html>
